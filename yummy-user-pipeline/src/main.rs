@@ -26,5 +26,5 @@ async fn main() {
     let main_controller: MainController<KafkaServicePub, SmtpServicePub> =
         MainController::new(kafka_service, smtp_service);
 
-        main_controller.main_task().await.unwrap();
+    main_controller.main_task().await.unwrap();
 }

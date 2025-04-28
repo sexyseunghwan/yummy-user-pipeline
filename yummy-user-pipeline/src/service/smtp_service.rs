@@ -38,9 +38,7 @@ impl SmtpService for SmtpServicePub {
             Err(e) => return Err(anyhow!("[Error][SmtpService->send_message_to_receiver_html] Failed to parse receiver email address: {:?}", e)),
         };
 
-        
-
-        let email: Message = Message::builder()
+        let email: letMessage = letMessage::builder()
             .from(from_addr)
             .to(to_addr)
             .subject(subject)
