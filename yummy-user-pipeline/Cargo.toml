@@ -11,9 +11,19 @@ log = "0.4.20"
 anyhow = "1.0.79"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+reqwest = { version = "0.12.9", features = ["json", "multipart", "stream"] }
 getset = "0.1.2"
 derive-new = "0.6.0"
-once_cell = "1.20.2"
-reqwest = { version = "0.12.9", features = ["json", "multipart", "stream"] }
-rdkafka = { version = "0.37", features = ["tokio", "sasl"] }
+glob = "0.3.1"
+toml = "0.8.19"
 async-trait = "0.1.83"
+sha2 = "0.10.8"
+futures = "0.3.31"
+once_cell = "1.20.2"
+rand = "0.8.5"
+lettre = { version = "0.11.10", default-features = false, features = ["smtp-transport", "tokio1", "builder", "tokio1-native-tls"] }
+chrono = "0.4.31"
+chrono-tz = "0.9.0"
+cron = "0.13.0"
+regex = "1.11.1"
+num-format = "0.4.4"

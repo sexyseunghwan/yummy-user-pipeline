@@ -38,11 +38,17 @@ pub use flexi_logger::{Age, Cleanup, Criterion, FileSpec, Logger, Naming, Record
 
 //pub use futures::{future::join_all, stream::TryStreamExt, Future};
 
-
-pub use rdkafka::consumer::StreamConsumer;
-pub use rdkafka::config::ClientConfig;
+// pub use rdkafka::consumer::StreamConsumer;
+// pub use rdkafka::config::ClientConfig;
+// pub use rdkafka::Message;
 
 pub use once_cell::sync::Lazy as once_lazy;
+
+pub use lettre::message::{Mailbox, MultiPart, SinglePart};
+pub use lettre::{
+    transport::smtp::authentication::Credentials, AsyncSmtpTransport, AsyncTransport, Message,
+    Tokio1Executor,
+};
 
 // pub use elasticsearch::{
 //     http::response::Response,
