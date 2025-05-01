@@ -14,6 +14,7 @@ pub trait KafkaService {
         &self,
     ) -> Result<MessageStream<'static, DefaultConsumerContext>, anyhow::Error>;
     fn get_consumer(&self) -> &'static StreamConsumer<DefaultConsumerContext>;
+    fn get_payload_view<'a>(&self, message: &'a BorrowedMessage<'a>) -> Result<String, anyhow::Error>;
 }
 
 #[derive(Debug, new)]
@@ -53,4 +54,26 @@ impl KafkaService for KafkaServicePub {
         
         Ok(stream)
     }
+
+
+    #[doc = "컨슈밍한 토픽의 데이터를 뽑아주는 함수"]
+    /// # Arguments
+    ///
+    /// # Returns
+    /// * Result<String, anyhow::Error>
+    fn get_payload_view<'a>(&self, message: &'a BorrowedMessage<'a>) -> Result<String, anyhow::Error> {
+
+        let payload: &str = match message.payload_view::<str>() {
+            Some(Ok(json_str)) => json_str,
+            Some(Err(e)) => {
+                return Err(anyhow::anyhow!("[Error][KafkaService->get_patload_view] Payload UTF-8 decoding error: {:?}", e));
+            }
+            None => {
+                return Err(anyhow::anyhow!("[Error][KafkaService->get_patload_view] Empty payload"));
+            }
+        };            
+
+        Ok(payload.to_string())
+    }
+    
 }
