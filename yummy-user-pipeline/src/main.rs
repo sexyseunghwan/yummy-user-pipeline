@@ -22,9 +22,16 @@ async fn main() {
 
     let smtp_service: SmtpServicePub = SmtpServicePub::new();
     let kafka_service: KafkaServicePub = KafkaServicePub::new();
+    
+    let arc_smtp_service: Arc<SmtpServicePub> = Arc::new(smtp_service);
+    let arc_kafka_service: Arc<KafkaServicePub> = Arc::new(kafka_service);
+    
 
-    let main_controller: MainController<KafkaServicePub, SmtpServicePub> =
-        MainController::new(kafka_service, smtp_service);
+    let main_controller: MainController<Arc<KafkaServicePub>, Arc<SmtpServicePub>> =
+        MainController::new(arc_kafka_service, arc_smtp_service);
 
-    main_controller.main_task().await.unwrap();
+    Arc::new(main_controller)
+        .run_parallel()
+        .await
+        .expect("Parallel task failed");
 }

@@ -1,6 +1,6 @@
 use crate::common::*;
 
-#[doc = "카프카 컨슈머 싱글톤 객체"]
+#[doc = "카프카 컨슈머 싱글톤 객체 -> 병렬사용시 부적합."]
 pub static KAFKA_CONSUMER: once_lazy<StreamConsumer> = once_lazy::new(|| {
     let hosts: String =
         env::var("KAFKA_HOST").expect("[ENV file read Error] 'KAFKA_HOST' must be set.");

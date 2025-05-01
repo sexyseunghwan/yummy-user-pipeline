@@ -1,5 +1,7 @@
-[[index]]
+[[topic]]
 topic_name = "dev-yummy-user-pw-hist"
+group_id = "consumer-pw-rust"
 
-[[index]]
+[[topic]]
 topic_name = "dev-yummy-user-id-hist"
+group_id = "consumer-id-rust"

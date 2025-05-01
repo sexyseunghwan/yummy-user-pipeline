@@ -18,7 +18,7 @@ pub trait SmtpService {
 pub struct SmtpServicePub {}
 
 #[async_trait]
-impl SmtpService for SmtpServicePub {
+impl SmtpService for Arc<SmtpServicePub> {
     #[doc = "이메일을 보내는 함수"]
     async fn send_message_to_receiver_html(
         &self,

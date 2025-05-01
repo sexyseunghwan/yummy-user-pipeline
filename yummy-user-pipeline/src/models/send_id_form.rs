@@ -1,6 +1,5 @@
 use crate::common::*;
 
-
 #[derive(Debug, Deserialize, Serialize, Getters, Clone)]
 #[getset(get = "pub")]
 pub struct SendIdForm {
@@ -8,5 +7,5 @@ pub struct SendIdForm {
     #[serde(rename = "userId")]
     pub user_id: String,
     #[serde(rename = "userEmail")]
-    pub user_email: String
+    pub user_email: String,
 }
