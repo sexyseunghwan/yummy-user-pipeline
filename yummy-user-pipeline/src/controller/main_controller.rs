@@ -34,19 +34,17 @@ impl<K: KafkaService + Send + Sync + 'static, S: SmtpService + Send + Sync + 'st
             let topic_name: String = topic.topic_name().to_string();
             let group_id: String = topic.group_id().to_string();
 
-            let consumer = controller
+            let consumer: StreamConsumer = controller
                 .kafka_service
                 .get_stream_consumer_for(&topic_name, &group_id)?;
-            let consumer_arc = Arc::new(consumer);
-            
-            let controller_clone = Arc::clone(&controller);
-            let consumer_clone = Arc::clone(&consumer_arc);
-            let topic_clone = topic_name.clone();
 
-            let handle = tokio::spawn(async move {
-                let mut stream = consumer_clone.stream();
+            let consumer_arc: Arc<StreamConsumer> = Arc::new(consumer);
+            let controller_clone: Arc<MainController<K, S>> = Arc::clone(&controller);
+            
+            let handle: tokio::task::JoinHandle<Result<(), anyhow::Error>> = tokio::spawn(async move {
+                let mut stream: MessageStream<'_, DefaultConsumerContext> = consumer_arc.stream();
                 controller_clone
-                    .process_stream(&topic_clone, &consumer_clone, &mut stream)
+                    .process_stream(&topic_name, &consumer_arc, &mut stream)
                     .await
             });
 
@@ -54,8 +52,22 @@ impl<K: KafkaService + Send + Sync + 'static, S: SmtpService + Send + Sync + 'st
         }
 
         /* 모든 task 기다리기 */ 
+        // for handle in handles {
+        //     handle.await??;
+        // }
         for handle in handles {
-            handle.await??;
+            match handle.await {
+                Ok(inner_result) => {
+                    if let Err(e) = inner_result {
+                        error!("[run_parallel] Stream task failed with error: {:?}", e);
+                        return Err(e); // 또는 계속 진행하고 싶다면 그냥 log만 찍고 continue
+                    }
+                },
+                Err(e) => {
+                    error!("[run_parallel] Tokio task join error: {:?}", e);
+                    return Err(anyhow::anyhow!("Tokio join error: {:?}", e));
+                }
+            }
         }
 
         Ok(())
