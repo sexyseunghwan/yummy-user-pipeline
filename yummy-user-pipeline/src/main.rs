@@ -1,3 +1,11 @@
+/*
+Author      : Seunghwan Shin
+Create date : 2025-05-05
+Description : 아이디/비밀번호 찾기 위한 배치 프로그램
+
+History     : 2025-05-05 Seunghwan Shin       # [v.1.0.0] first create
+*/
+
 mod common;
 use common::*;
 
@@ -24,12 +32,8 @@ async fn main() {
     let smtp_service: SmtpServicePub = SmtpServicePub::new();
     let kafka_service: KafkaServicePub = KafkaServicePub::new();
     
-    let arc_smtp_service: Arc<SmtpServicePub> = Arc::new(smtp_service);
-    let arc_kafka_service: Arc<KafkaServicePub> = Arc::new(kafka_service);
-    
-
-    let main_controller: MainController<Arc<KafkaServicePub>, Arc<SmtpServicePub>> =
-        MainController::new(arc_kafka_service, arc_smtp_service);
+    let main_controller: MainController<KafkaServicePub, SmtpServicePub> =
+        MainController::new(kafka_service, smtp_service);
 
     Arc::new(main_controller)
         .run_parallel()

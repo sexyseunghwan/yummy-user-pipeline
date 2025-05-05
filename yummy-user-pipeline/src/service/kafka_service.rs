@@ -29,12 +29,12 @@ pub trait KafkaService {
 pub struct KafkaServicePub {}
 
 #[async_trait]
-impl KafkaService for Arc<KafkaServicePub> {
+impl KafkaService for KafkaServicePub {
     fn get_consumer(&self) -> &'static StreamConsumer<DefaultConsumerContext> {
         &KAFKA_CONSUMER
     }
 
-    #[doc = "카프카 컨슈머 객체를 생성하여 리턴."]
+    #[doc = "카프카 컨슈머 객체를 생성하여 리턴. - 병렬처리를 고려하지 않은 함수"]
     /// # Arguments
     ///
     /// # Returns
@@ -88,6 +88,13 @@ impl KafkaService for Arc<KafkaServicePub> {
         Ok(payload.to_string())
     }
 
+    #[doc = "멀티스레드 실행을 위해 StreamConsumer 을 싱글톤으로 가져오지 않는다. - 벙렬처리를 고려한 함수"]
+    /// # Arguments
+    /// * `topic` - 토픽이름
+    /// * `group_id` - 그룹 아이디
+    /// 
+    /// # Returns
+    /// * Result<StreamConsumer, anyhow::Error>
     fn get_stream_consumer_for(
         &self,
         topic: &str,
