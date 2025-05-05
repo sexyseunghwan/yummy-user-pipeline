@@ -38,7 +38,7 @@ impl<K: KafkaService + Send + Sync + 'static, S: SmtpService + Send + Sync + 'st
         for topic in kafka_topics.topic {
             let topic_name: String = topic.topic_name().to_string();
             let group_id: String = topic.group_id().to_string();
-
+            
             let controller_arc: Arc<MainController<K, S>> = Arc::clone(&self);
 
             let consumer: StreamConsumer = controller_arc
@@ -93,8 +93,10 @@ impl<K: KafkaService + Send + Sync + 'static, S: SmtpService + Send + Sync + 'st
             match result {
                 Ok(message) => {
                     let res = match topic {
-                        "dev-yummy-user-id-hist" => self.user_id_hist(&consumer, &message).await,
-                        "dev-yummy-user-pw-hist" => self.user_pw_hist(&consumer, &message).await,
+                        "dev-yummy-user-id-hist" => self.user_id_hist(consumer, &message).await,
+                        "dev-yummy-user-pw-hist" => self.user_pw_hist(consumer, &message).await,
+                        "yummy-user-id-hist" => self.user_id_hist(consumer, &message).await,
+                        "yummy-user-pw-hist" => self.user_pw_hist(consumer, &message).await,
                         _ => {
                             error!("[Error][MainController->process_stream] Unknown topic: {}", topic);
                             continue;

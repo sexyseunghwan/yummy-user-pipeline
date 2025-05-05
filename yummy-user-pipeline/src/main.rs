@@ -11,7 +11,6 @@ use common::*;
 
 mod utils_module;
 use utils_module::logger_utils::*;
-use utils_module::check_util::*;
 
 mod models;
 

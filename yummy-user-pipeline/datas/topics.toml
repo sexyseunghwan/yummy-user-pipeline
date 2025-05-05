@@ -5,3 +5,11 @@ group_id = "consumer-pw-rust"
 [[topic]]
 topic_name = "dev-yummy-user-id-hist"
 group_id = "consumer-id-rust"
+
+[[topic]]
+topic_name = "yummy-user-pw-hist"
+group_id = "consumer-pw-rust-prod"
+
+[[topic]]
+topic_name = "yummy-user-id-hist"
+group_id = "consumer-id-rust-prod"
