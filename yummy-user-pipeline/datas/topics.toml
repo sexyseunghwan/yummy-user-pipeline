@@ -13,3 +13,11 @@ group_id = "consumer-pw-rust-prod"
 [[topic]]
 topic_name = "yummy-user-id-hist"
 group_id = "consumer-id-rust-prod"
+
+[[topic]]
+topic_name = "yummy-join-hist"
+group_id = "consumer-join-hist-prod"
+
+[[topic]]
+topic_name = "dev-yummy-join-hist"
+group_id = "consumer-join-hist"

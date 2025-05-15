@@ -92,7 +92,7 @@ impl KafkaService for KafkaServicePub {
     /// # Arguments
     /// * `topic` - 토픽이름
     /// * `group_id` - 그룹 아이디
-    /// 
+    ///
     /// # Returns
     /// * Result<StreamConsumer, anyhow::Error>
     fn get_stream_consumer_for(

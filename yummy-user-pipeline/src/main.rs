@@ -30,7 +30,7 @@ async fn main() {
 
     let smtp_service: SmtpServicePub = SmtpServicePub::new();
     let kafka_service: KafkaServicePub = KafkaServicePub::new();
-    
+
     let main_controller: MainController<KafkaServicePub, SmtpServicePub> =
         MainController::new(kafka_service, smtp_service);
 

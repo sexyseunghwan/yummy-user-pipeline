@@ -14,6 +14,13 @@ pub static HTML_PW_TEMPLATE_PATH: once_lazy<String> = once_lazy::new(|| {
         .expect("[ENV file read Error] 'HTML_PW_TEMPLATE_PATH' must be set")
 });
 
+#[doc = "Function to globally initialize the 'HTML_JOIN_CHECK_TEMPLATE_PATH' variable"]
+pub static HTML_JOIN_CHECK_TEMPLATE_PATH: once_lazy<String> = once_lazy::new(|| {
+    dotenv().ok();
+    env::var("HTML_JOIN_CHECK_TEMPLATE_PATH")
+        .expect("[ENV file read Error] 'HTML_JOIN_CHECK_TEMPLATE_PATH' must be set")
+});
+
 #[doc = "Function to globally initialize the 'TOPICS_PATH' variable"]
 pub static TOPICS_PATH: once_lazy<String> = once_lazy::new(|| {
     dotenv().ok();

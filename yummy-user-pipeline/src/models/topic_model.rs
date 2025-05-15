@@ -4,7 +4,7 @@ use crate::common::*;
 #[getset(get = "pub")]
 pub struct TopicModel {
     pub topic_name: String,
-    pub group_id: String
+    pub group_id: String,
 }
 
 #[derive(Debug, Deserialize, Serialize, Getters, Clone)]

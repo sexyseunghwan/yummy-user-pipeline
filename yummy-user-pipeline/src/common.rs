@@ -27,13 +27,10 @@ pub use log::{error, info};
 pub use flexi_logger::{Age, Cleanup, Criterion, FileSpec, Logger, Naming, Record};
 
 pub use rdkafka::{
-    Message,
     config::ClientConfig,
-    consumer::{
-        CommitMode, Consumer, DefaultConsumerContext,
-        MessageStream, StreamConsumer
-    },
-    message::BorrowedMessage
+    consumer::{CommitMode, Consumer, DefaultConsumerContext, MessageStream, StreamConsumer},
+    message::BorrowedMessage,
+    Message,
 };
 
 pub use futures::stream::StreamExt;
