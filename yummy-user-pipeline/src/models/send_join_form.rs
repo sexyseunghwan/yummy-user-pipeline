@@ -6,6 +6,6 @@ pub struct SendJoinForm {
     pub now: String,
     #[serde(rename = "userEmail")]
     pub user_email: String,
-    #[serde(rename = "joinCheckCode")]
-    pub join_check_code: String
+    #[serde(rename = "EmailCode")]
+    pub email_code: String
 }
