@@ -150,11 +150,11 @@ impl<K: KafkaService + Send + Sync + 'static, S: SmtpService + Send + Sync + 'st
         })?;
 
         /* html 템플릿 */
-        let html_template: String = fs::read_to_string(Path::new(HTML_ID_TEMPLATE_PATH.as_str()))?;
+        let html_template: String = fs::read_to_string(Path::new(HTML_JOIN_CHECK_TEMPLATE_PATH.as_str()))?;
         let html_content: String = html_template
             .replace("{date}", send_join_form.now())
             .replace("{email_code}", send_join_form.email_code());
-
+        
         self.smtp_service
             .send_message_to_receiver_html(
                 send_join_form.user_email(),
